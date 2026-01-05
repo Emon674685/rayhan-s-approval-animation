@@ -7,6 +7,7 @@ import ReasonsList from "@/components/ReasonsList";
 import Confetti from "@/components/Confetti";
 import ThankYouMessage from "@/components/ThankYouMessage";
 import agmImage from "@/assets/agm-rayhan-ali.png";
+import { AlertTriangle } from "lucide-react";
 
 const Index = () => {
   const [accepted, setAccepted] = useState(false);
@@ -50,7 +51,7 @@ const Index = () => {
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            🙏 ছুটির আবেদন 🙏
+            🙏 ছুটি Approve করুন 🙏
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl font-body text-muted-foreground"
@@ -58,8 +59,31 @@ const Index = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            বিনীত নিবেদন
+            জরুরি আবেদন
           </motion.p>
+        </motion.div>
+
+        {/* Already on leave notice */}
+        <motion.div
+          className="mb-6 p-4 bg-accent/20 border-2 border-accent rounded-xl flex items-center gap-3"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <motion.div
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+          >
+            <AlertTriangle className="w-8 h-8 text-accent" />
+          </motion.div>
+          <div>
+            <p className="font-display text-xl text-foreground">
+              ⚠️ আমি ইতিমধ্যে ছুটি কাটাচ্ছি!
+            </p>
+            <p className="font-body text-sm text-muted-foreground">
+              প্লিজ স্যার, এখন শুধু approve করে দিন! 🥺
+            </p>
+          </div>
         </motion.div>
 
         {/* Main content card */}
@@ -115,15 +139,23 @@ const Index = () => {
             transition={{ delay: 0.6 }}
           >
             <p className="text-lg md:text-xl font-body text-foreground leading-relaxed text-center">
-              স্যার, আপনার প্রতি বিনয়ের সাথে জানাচ্ছি যে আমার 
+              স্যার, আমি ইতিমধ্যে 
               <motion.span 
-                className="inline-block mx-2 px-3 py-1 bg-primary/20 rounded-lg font-bold text-primary"
+                className="inline-block mx-2 px-3 py-1 bg-accent/30 rounded-lg font-bold text-accent"
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
-                অত্যন্ত জরুরি
+                ছুটিতে আছি
               </motion.span>
-              ভিত্তিতে ছুটি প্রয়োজন। আশা করি আপনি আমার এই ছোট্ট আবেদনটি মঞ্জুর করবেন। 
+              এবং আপনার কাছে বিনীত অনুরোধ এটা 
+              <motion.span 
+                className="inline-block mx-2 px-3 py-1 bg-secondary/30 rounded-lg font-bold text-secondary"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+              >
+                approve
+              </motion.span>
+              করে দিন! 🙏
             </p>
           </motion.div>
 
@@ -141,10 +173,10 @@ const Index = () => {
               animate={{ scale: [1, 1.03, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
-              🥺 প্লিজ স্যার, একটু দয়া করুন! 🥺
+              🥺 স্যার প্লিজ! একবার approve করে দিন! 🥺
             </motion.p>
             <p className="font-body text-sm text-muted-foreground mt-2">
-              আপনি approve করলে আমি চিরকৃতজ্ঞ থাকব!
+              আমি ছুটি থেকে ফিরে দ্বিগুণ কাজ করব! 💪
             </p>
           </motion.div>
         </PleadingCard>
