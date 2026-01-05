@@ -20,7 +20,7 @@ const AcceptButton = ({ onClick, accepted }: AcceptButtonProps) => {
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.5, type: "spring", bounce: 0.5 }}
+      transition={{ delay: 1.5 }}
     >
       <span className="flex items-center gap-3">
         {accepted ? (
@@ -30,8 +30,8 @@ const AcceptButton = ({ onClick, accepted }: AcceptButtonProps) => {
           </>
         ) : (
           <>
-            <Sparkles className="w-8 h-8 animate-spin-slow" />
-            Accept করুন প্লিজ! 🙏
+            <Sparkles className="w-8 h-8" />
+            ছুটি Approve করুন! 🙏
           </>
         )}
       </span>
