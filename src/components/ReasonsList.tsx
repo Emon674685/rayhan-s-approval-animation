@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, X, Plus } from "lucide-react";
+import { CheckCircle2, X, Plus, Send } from "lucide-react";
 
 const defaultReasons = [
   "আমি সত্যিই খুব ক্লান্ত হয়ে গেছি 😫",
@@ -27,8 +27,9 @@ const ReasonsList = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleAdd();
     }
   };
@@ -47,7 +48,7 @@ const ReasonsList = () => {
       <AnimatePresence initial={false}>
         {reasons.map((reason, index) => (
           <motion.div
-            key={reason}
+            key={`reason-${index}-${reason.slice(0,10)}`}
             className="flex items-center gap-3 bg-muted/50 rounded-xl px-4 py-3 border border-border group"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -57,6 +58,7 @@ const ReasonsList = () => {
             <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
             <span className="font-body text-foreground flex-1">{reason}</span>
             <motion.button
+              type="button"
               onClick={() => handleDelete(index)}
               className="opacity-0 group-hover:opacity-100 p-1.5 rounded-full bg-accent/20 hover:bg-accent text-accent hover:text-accent-foreground transition-all"
               whileHover={{ scale: 1.1 }}
@@ -69,47 +71,62 @@ const ReasonsList = () => {
       </AnimatePresence>
 
       {/* Add new reason section */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isAdding ? (
           <motion.div
-            className="flex items-center gap-3 bg-primary/10 rounded-xl px-4 py-3 border-2 border-dashed border-primary/40"
+            key="input-form"
+            className="bg-primary/10 rounded-xl px-4 py-4 border-2 border-dashed border-primary/40"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <Plus className="w-5 h-5 text-primary flex-shrink-0" />
-            <input
-              type="text"
-              value={newReason}
-              onChange={(e) => setNewReason(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="নতুন কারণ লিখুন..."
-              className="flex-1 bg-transparent border-none outline-none font-body text-foreground placeholder:text-muted-foreground"
-              autoFocus
-            />
-            <motion.button
-              onClick={handleAdd}
-              className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground font-body text-sm"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              যোগ করুন
-            </motion.button>
-            <motion.button
-              onClick={() => {
-                setIsAdding(false);
-                setNewReason("");
-              }}
-              className="p-1.5 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <X className="w-4 h-4" />
-            </motion.button>
+            <div className="flex flex-col gap-3">
+              <label className="font-body text-sm text-primary font-medium">
+                নতুন কারণ লিখুন:
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={newReason}
+                  onChange={(e) => setNewReason(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="এখানে কারণ টাইপ করুন..."
+                  className="flex-1 px-4 py-3 rounded-lg bg-card border-2 border-primary/30 outline-none font-body text-foreground placeholder:text-muted-foreground focus:border-primary transition-colors"
+                  autoFocus
+                />
+              </div>
+              <div className="flex items-center gap-2 justify-end">
+                <motion.button
+                  type="button"
+                  onClick={() => {
+                    setIsAdding(false);
+                    setNewReason("");
+                  }}
+                  className="px-4 py-2 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground font-body text-sm"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  বাতিল
+                </motion.button>
+                <motion.button
+                  type="button"
+                  onClick={handleAdd}
+                  disabled={!newReason.trim()}
+                  className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-body text-sm flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: newReason.trim() ? 1.02 : 1 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Send className="w-4 h-4" />
+                  যোগ করুন
+                </motion.button>
+              </div>
+            </div>
           </motion.div>
         ) : (
           <motion.button
+            key="add-button"
+            type="button"
             onClick={() => setIsAdding(true)}
             className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-primary/30 text-primary hover:border-primary/60 hover:bg-primary/5 transition-all font-body"
             whileHover={{ scale: 1.02 }}
