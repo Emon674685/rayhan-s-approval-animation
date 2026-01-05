@@ -6,6 +6,7 @@ import AcceptButton from "@/components/AcceptButton";
 import ReasonsList from "@/components/ReasonsList";
 import Confetti from "@/components/Confetti";
 import ThankYouMessage from "@/components/ThankYouMessage";
+import agmImage from "@/assets/agm-rayhan-ali.png";
 
 const Index = () => {
   const [accepted, setAccepted] = useState(false);
@@ -42,14 +43,14 @@ const Index = () => {
           className="text-center mb-8"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, type: "spring" }}
+          transition={{ duration: 0.8 }}
         >
           <motion.h1 
-            className="text-5xl md:text-7xl font-display text-foreground mb-2"
-            animate={{ rotate: [-2, 2, -2] }}
+            className="text-4xl md:text-6xl font-display text-foreground mb-2"
+            animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            🙏 Leave Application 🙏
+            🙏 ছুটির আবেদন 🙏
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl font-body text-muted-foreground"
@@ -63,13 +64,29 @@ const Index = () => {
 
         {/* Main content card */}
         <PleadingCard delay={0.2}>
+          {/* AGM Photo */}
           <div className="text-center mb-6">
             <motion.div
-              className="inline-block mb-4"
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+              className="inline-block mb-4 relative"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", bounce: 0.5 }}
             >
-              <span className="text-6xl">👨‍💼</span>
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-primary shadow-playful mx-auto">
+                <img 
+                  src={agmImage} 
+                  alt="MD Rayhan Ali - AGM" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Crown effect */}
+              <motion.span 
+                className="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                👑
+              </motion.span>
             </motion.div>
             
             <motion.h2 
@@ -98,15 +115,15 @@ const Index = () => {
             transition={{ delay: 0.6 }}
           >
             <p className="text-lg md:text-xl font-body text-foreground leading-relaxed text-center">
-              স্যার, আমি বিনয়ের সাথে জানাতে চাচ্ছি যে আমার 
+              স্যার, আপনার প্রতি বিনয়ের সাথে জানাচ্ছি যে আমার 
               <motion.span 
                 className="inline-block mx-2 px-3 py-1 bg-primary/20 rounded-lg font-bold text-primary"
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               >
-                জরুরি ভিত্তিতে
+                অত্যন্ত জরুরি
               </motion.span>
-              ছুটি প্রয়োজন। আশা করি আপনি আমার আবেদন বিবেচনা করবেন। 
+              ভিত্তিতে ছুটি প্রয়োজন। আশা করি আপনি আমার এই ছোট্ট আবেদনটি মঞ্জুর করবেন। 
             </p>
           </motion.div>
 
@@ -119,8 +136,15 @@ const Index = () => {
             transition={{ delay: 1.2 }}
             whileHover={{ scale: 1.02 }}
           >
-            <p className="font-display text-2xl text-foreground">
+            <motion.p 
+              className="font-display text-2xl text-foreground"
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
               🥺 প্লিজ স্যার, একটু দয়া করুন! 🥺
+            </motion.p>
+            <p className="font-body text-sm text-muted-foreground mt-2">
+              আপনি approve করলে আমি চিরকৃতজ্ঞ থাকব!
             </p>
           </motion.div>
         </PleadingCard>
@@ -147,7 +171,7 @@ const Index = () => {
           </p>
           <motion.p 
             className="font-display text-xl text-primary mt-2"
-            animate={{ scale: [1, 1.05, 1] }}
+            animate={{ scale: [1, 1.03, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             ❤️ আপনি সেরা AGM! ❤️
